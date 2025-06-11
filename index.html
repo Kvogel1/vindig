@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vin-Dig - Homepage</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom font import */
+        @font-face {
+            font-family: 'Alternate Gothic ATF';
+            src: url('fonts/AlternateGothicATF-Regular.woff2') format('woff2'),
+                 url('fonts/AlternateGothicATF-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Alternate Gothic ATF';
+            src: url('fonts/AlternateGothicATF-Bold.woff2') format('woff2'),
+                 url('fonts/AlternateGothicATF-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        /* Custom styles for the background image and font */
+        body {
+            font-family: 'Inter', sans-serif; /* Default fallback */
+            background-color: #000; /* Overall dark background */
+        }
+
+        h1, h2, h3, h4, h5, h6, strong {
+            font-family: 'Alternate Gothic ATF', sans-serif; /* Apply custom font to headings and strong text */
+        }
+
+        .hero-section {
+            /* Using the provided Hero-Home.jpg image */
+            /* Added linear-gradient for transparency and darker overlay */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/Hero-Home.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* Made thinner by reducing height to max 300px */
+            height: 300px; /* Max height 300px for all screen sizes */
+        }
+
+        /* Responsive adjustments for the hero section background to ensure it looks good on mobile */
+        @media (max-width: 768px) {
+            .hero-section {
+                /* Using the same image for simplicity, but ideally a mobile-optimized one for performance */
+                background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/Hero-Home.jpg');
+                height: 300px; /* Consistent max height for mobile */
+            }
+        }
+
+        /* Hide scrollbar for the artist carousel but allow scrolling */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+
+        /* Active navigation link styling */
+        .active-nav-link {
+            text-decoration: underline;
+            text-underline-offset: 4px; /* Adjust as needed for underline spacing */
+            color: #F3FE00; /* Signature color for active link */
+        }
+
+        /* Hover effect for navigation links using signature color */
+        .nav-link-hover:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: #F3FE00; /* Signature color on hover */
+        }
+
+        /* Style for carousel navigation arrows */
+        .carousel-nav-btn {
+            background-color: rgba(128, 128, 128, 0.75); /* Gray background */
+            color: #F3FE00; /* Signature color for arrows */
+            transition: background-color 0.3s ease; /* Smooth transition for background */
+        }
+
+        .carousel-nav-btn:hover {
+            background-color: rgba(128, 128, 128, 1); /* Darker gray on hover */
+            color: #F3FE00; /* Signature color remains on hover */
+        }
+
+        /* Mobile navigation menu styling */
+        /* Use CSS variable for top position based on header height */
+        .mobile-menu {
+            position: fixed; /* Changed to fixed to stick below the sticky header */
+            top: var(--header-height, 96px); /* Fallback 96px if JS not loaded/variable not set */
+            left: 0;
+            width: 100%;
+            height: calc(100vh - var(--header-height, 96px)); /* Fill remaining viewport height */
+            background-color: #000; /* Same as header background */
+            flex-direction: column;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 40; /* Below fixed header, above content */
+            overflow-y: auto; /* Enable scrolling if menu content is long */
+            justify-content: center; /* Center menu items vertically */
+            align-items: center; /* Center menu items horizontally */
+        }
+
+        .mobile-menu li {
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+        }
+
+        /* Modal specific styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            color: #fff;
+            position: relative;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #F3FE00;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #F3FE00;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <header class="bg-black py-6 px-6 flex items-center justify-between shadow-md sticky top-0 z-50 relative">
+        <!-- Left Section: Online Shop Icon -->
+        <div class="flex items-center flex-shrink-0 w-24 justify-start z-30">
+            <a href="https://www.vinyl-digital.com/" target="_blank" class="block">
+                <img src="images/vindig-logo-pic.png" alt="Online Shop" class="h-16 w-16 rounded-md" onerror="this.onerror=null; this.src='https://placehold.co/64x64/000000/FFFFFF?text=SHOP';">
+            </a>
+        </div>
+
+        <!-- Center Section: Logo (Desktop) -->
+        <div class="hidden md:flex flex-grow justify-center items-center min-w-0 px-2">
+            <a href="index.html" class="block">
+                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-24 md:h-32 rounded-md max-w-[50vw] min-w-[100px]" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
+            </a>
+        </div>
+
+        <!-- Center Section: Logo (Mobile) -->
+        <div class="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+            <a href="index.html" class="block">
+                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-24 rounded-md max-w-[calc(100%-192px)]" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
+            </a>
+        </div>
+
+        <!-- Right Section: Desktop Navigation Links and Hamburger (Mobile) -->
+        <div class="flex items-center flex-shrink-0 z-30">
+            <nav id="main-nav" class="hidden md:flex">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="nav-link-hover font-medium active-nav-link">Home</a></li>
+                    <li><a href="#" class="text-white nav-link-hover font-medium">Milestone</a></li>
+                    <li><a href="#" class="text-white nav-link-hover font-medium">Tours</a></li>
+                    <li><a href="#" class="text-white nav-link-hover font-medium">Playlists</a></li>
+                    <li><a href="#" class="text-white nav-link-hover font-medium">Vinyl</a></li>
+                    <li><a href="#" class="text-white nav-link-hover font-medium">Partner</a></li>
+                </ul>
+            </nav>
+            <button id="hamburger-menu" class="text-white text-2xl md:hidden focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <nav id="mobile-nav" class="hidden mobile-menu">
+        <ul>
+            <li><a href="#" class="block text-white nav-link-hover font-medium active-nav-link py-2 text-2xl">Home</a></li>
+            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Milestone</a></li>
+            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Tours</a></li>
+            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Playlists</a></li>
+            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Vinyl</a></li>
+            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Partner</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-section flex items-center justify-center text-center">
+        <h1 class="text-5xl md:text-7xl font-bold text-white tracking-widest px-4 py-2 rounded-lg">Our Artists</h1>
+    </section>
+
+    <section class="bg-black py-8 px-4 flex justify-center">
+        <div class="relative w-full max-w-lg">
+            <input
+                type="text"
+                placeholder="Search artists..."
+                class="w-full py-3 pl-12 pr-4 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:border-transparent transition-all duration-300"
+            >
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-gray-500"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lo-Fi Section Title -->
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Lo-Fi</h2>
+    </section>
+
+    <!-- Artists Showcase Section (Lo-Fi) -->
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="lofi-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+1" alt="Artist 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 1">Artist 1 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+2" alt="Artist 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 2">Artist 2 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+3" alt="Artist 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 3">Artist 3 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+4" alt="Artist 4" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 4">Artist 4 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+5" alt="Artist 5" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 5">Artist 5 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+6" alt="Artist 6" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 6">Artist 6 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+7" alt="Artist 7" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 7">Artist 7 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="lofi-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="lofi-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Jazzy</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="jazzy-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+8" alt="Artist 8" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 8">Artist 8 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+9" alt="Artist 9" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 9">Artist 9 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+10" alt="Artist 10" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 10">Artist 10 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+11" alt="Artist 11" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 11">Artist 11 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+12" alt="Artist 12" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 12">Artist 12 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+13" alt="Artist 13" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 13">Artist 13 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+14" alt="Artist 14" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 14">Artist 14 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="jazzy-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="jazzy-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">International Rap</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="rap-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+15" alt="Artist 15" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 15">Artist 15 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+16" alt="Artist 16" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 16">Artist 16 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+17" alt="Artist 17" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 17">Artist 17 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+18" alt="Artist 18" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 18">Artist 18 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+19" alt="Artist 19" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 19">Artist 19 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+20" alt="Artist 20" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 20">Artist 20 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+21" alt="Artist 21" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 21">Artist 21 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="rap-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">German Rap</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="german-rap-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+22" alt="Artist 22" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 22">Artist 22 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+23" alt="Artist 23" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 23">Artist 23 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+24" alt="Artist 24" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 24">Artist 24 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+25" alt="Artist 25" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 25">Artist 25 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+26" alt="Artist 26" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 26">Artist 26 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+27" alt="Artist 27" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 27">Artist 27 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+28" alt="Artist 28" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 28">Artist 28 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="german-rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="german-rap-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">New Cats Rap</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="new-cats-rap-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+29" alt="Artist 29" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 29">Artist 29 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+30" alt="Artist 30" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 30">Artist 30 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+31" alt="Artist 31" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 31">Artist 31 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+32" alt="Artist 32" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 32">Artist 32 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+33" alt="Artist 33" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 33">Artist 33 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+34" alt="Artist 34" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 34">Artist 34 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+35" alt="Artist 35" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 35">Artist 35 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="new-cats-rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="new-cats-rap-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">New Cats Instrumental</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="new-cats-instrumental-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+36" alt="Artist +36" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 36">Artist 36 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+37" alt="Artist 37" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 37">Artist 37 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+38" alt="Artist 38" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 38">Artist 38 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+39" alt="Artist 39" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 39">Artist 39 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+40" alt="Artist 40" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 40">Artist 40 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+41" alt="Artist 41" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 41">Artist 41 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+42" alt="Artist 42" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 42">Artist 42 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="new-cats-instrumental-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="new-cats-instrumental-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Classics</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="classics-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+43" alt="Artist 43" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 43">Artist 43 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+44" alt="Artist 44" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 44">Artist 44 ✨</button>
+                        </div>
+                        </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+45" alt="Artist 45" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 45">Artist 45 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+46" alt="Artist 46" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 46">Artist 46 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+47" alt="Artist 47" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 47">Artist 47 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+48" alt="Artist 48" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 48">Artist 48 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+49" alt="Artist 49" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 49">Artist 49 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="classics-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="classics-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Chill Beats</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="chill-beats-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+50" alt="Artist 50" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 50">Artist 50 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+51" alt="Artist 51" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 51">Artist 51 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+52" alt="Artist 52" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 52">Artist 52 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+53" alt="Artist 53" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 53">Artist 53 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+54" alt="Artist 54" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 54">Artist 54 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+55" alt="Artist 55" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 55">Artist 55 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+56" alt="Artist 56" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 56">Artist 56 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="chill-beats-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="chill-beats-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <section class="bg-black py-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Beat Art</h2>
+    </section>
+
+    <section class="bg-black py-8">
+        <div class="relative max-w-full mx-auto px-4">
+            <div id="beat-art-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+57" alt="Artist 57" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 57">Artist 57 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+58" alt="Artist 58" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 58">Artist 58 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+59" alt="Artist 59" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 59">Artist 59 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+60" alt="Artist 60" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 60">Artist 60 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+61" alt="Artist 61" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 61">Artist 61 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+62" alt="Artist 62" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 62">Artist 62 ✨</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
+                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+63" alt="Artist 63" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
+                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 63">Artist 63 ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="beat-art-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button id="beat-art-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Modal for Artist Bio -->
+    <div id="bioModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <span class="modal-close-btn" id="closeBioModal">&times;</span>
+            <h3 class="text-3xl font-bold mb-4 text-[#F3FE00]" id="modalArtistName"></h3>
+            <div id="modalBioContent" class="text-base text-gray-300">
+                <div class="spinner mx-auto my-8"></div>
+                <p class="text-center">Generating bio...</p>
+            </div>
+            <p id="modalError" class="text-red-500 text-center mt-4 hidden">Failed to load bio.</p>
+        </div>
+    </div>
+
+    <footer class="bg-black py-8 px-4 text-gray-600">
+        <div class="max-w-full mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-spotify text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-apple text-xl"></i></a>
+                <a href="#" class="fab fa-youtube text-gray-400 hover:text-white transition-colors duration-300 text-xl"></a>
+                <a href="#" class="fab fa-soundcloud text-gray-400 hover:text-white transition-colors duration-300 text-xl"></a>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Impressum</a>
+                <span class="text-gray-500">© 2023 Vin-Dig Rec. Right Reserved Gmbh</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-menu');
+            const mobileNav = document.getElementById('mobile-nav');
+            const header = document.querySelector('header'); // Get the header element
+
+            // Modal elements
+            const bioModal = document.getElementById('bioModal');
+            const closeBioModalBtn = document.getElementById('closeBioModal');
+            const modalArtistName = document.getElementById('modalArtistName');
+            const modalBioContent = document.getElementById('modalBioContent');
+            const modalError = document.getElementById('modalError');
+            const viewBioBtns = document.querySelectorAll('.view-bio-btn'); // Select all view bio buttons
+
+            // Function to set CSS variable for header height
+            const setHeaderHeightVar = () => {
+                document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+            };
+
+            // Set initial header height and update on resize
+            setHeaderHeightVar();
+            window.addEventListener('resize', setHeaderHeightVar);
+
+            // Hamburger menu functionality
+            hamburgerBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+
+            // Hide mobile menu if screen resized to desktop or bigger
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
+                    mobileNav.classList.add('hidden');
+                }
+            });
+
+            // Gemini API Integration for Artist Bio
+            const generateArtistBio = async (artistName) => {
+                modalArtistName.textContent = artistName;
+                modalBioContent.innerHTML = '<div class="spinner mx-auto my-8"></div><p class="text-center">Generating bio...</p>';
+                modalError.classList.add('hidden');
+                bioModal.classList.remove('hidden'); // Show modal
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Provide a concise biography (max 150 words) for the music artist "${artistName}". Focus on their genre, notable works, and impact. If you don't know the artist, state "Information about ${artistName} is currently unavailable."`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will automatically provide it in runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        modalBioContent.innerHTML = `<p>${text}</p>`;
+                    } else {
+                        modalBioContent.innerHTML = ''; // Clear spinner
+                        modalError.textContent = `Could not generate bio for ${artistName}. Please try again.`;
+                        modalError.classList.remove('hidden');
+                        console.error('Unexpected API response structure:', result);
+                    }
+                } catch (error) {
+                    modalBioContent.innerHTML = ''; // Clear spinner
+                    modalError.textContent = `An error occurred while fetching the bio: ${error.message}`;
+                    modalError.classList.remove('hidden');
+                    console.error('Error fetching artist bio:', error);
+                }
+            };
+
+            // Event listeners for "View Bio" buttons
+            viewBioBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    const artistName = button.dataset.artistName;
+                    generateArtistBio(artistName);
+                });
+            });
+
+            // Close modal functionality
+            closeBioModalBtn.addEventListener('click', () => {
+                bioModal.classList.add('hidden');
+            });
+
+            // Close modal if overlay is clicked
+            bioModal.addEventListener('click', (event) => {
+                if (event.target === bioModal) {
+                    bioModal.classList.add('hidden');
+                }
+            });
+
+
+            // Smooth scroll for carousel navigation (existing code)
+            const carousels = [
+                { id: 'lofi-carousel', leftBtn: 'lofi-scroll-left', rightBtn: 'lofi-scroll-right' },
+                { id: 'jazzy-carousel', leftBtn: 'jazzy-scroll-left', rightBtn: 'jazzy-scroll-right' },
+                { id: 'rap-carousel', leftBtn: 'rap-scroll-left', rightBtn: 'rap-scroll-right' },
+                { id: 'german-rap-carousel', leftBtn: 'german-rap-scroll-left', rightBtn: 'german-rap-scroll-right' },
+                { id: 'new-cats-rap-carousel', leftBtn: 'new-cats-rap-scroll-left', rightBtn: 'new-cats-rap-scroll-right' },
+                { id: 'new-cats-instrumental-carousel', leftBtn: 'new-cats-instrumental-scroll-left', rightBtn: 'new-cats-instrumental-scroll-right' },
+                { id: 'classics-carousel', leftBtn: 'classics-scroll-left', rightBtn: 'classics-scroll-right' },
+                { id: 'chill-beats-carousel', leftBtn: 'chill-beats-scroll-left', rightBtn: 'chill-beats-scroll-right' },
+                { id: 'beat-art-carousel', leftBtn: 'beat-art-scroll-left', rightBtn: 'beat-art-scroll-right' }
+            ];
+
+            carousels.forEach(carouselData => {
+                const carousel = document.getElementById(carouselData.id);
+                const scrollLeftBtn = document.getElementById(carouselData.leftBtn);
+                const scrollRightBtn = document.getElementById(carouselData.rightBtn);
+
+                if (carousel && scrollLeftBtn && scrollRightBtn) {
+                    const scrollCarousel = (direction) => {
+                        const scrollAmount = carousel.clientWidth * 0.8;
+                        if (direction === 'left') {
+                            carousel.scrollBy({
+                                left: -scrollAmount,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            carousel.scrollBy({
+                                left: scrollAmount,
+                                behavior: 'smooth'
+                            });
+                        }
+                    };
+                    scrollLeftBtn.addEventListener('click', () => scrollCarousel('left'));
+                    scrollRightBtn.addEventListener('click', () => scrollCarousel('right'));
+
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+                    carousel.addEventListener('touchstart', (e) => {
+                        touchStartX = e.touches[0].clientX;
+                    });
+                    carousel.addEventListener('touchmove', (e) => {
+                        touchEndX = e.touches[0].clientX;
+                    });
+                    carousel.addEventListener('touchend', () => {
+                        if (touchStartX - touchEndX > 50) {
+                            scrollCarousel('right');
+                        } else if (touchEndX - touchStartX > 50) {
+                            scrollCarousel('left');
+                        }
+                        touchStartX = 0;
+                        touchEndX = 0;
+                    });
+                } else {
+                    console.error(`Carousel or buttons not found for ID: ${carouselData.id}`);
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                const lofiCarousel = document.getElementById('lofi-carousel');
+                if (lofiCarousel) {
+                    if (e.key === 'ArrowLeft') {
+                        lofiCarousel.scrollBy({ left: -lofiCarousel.clientWidth * 0.8, behavior: 'smooth' });
+                    } else if (e.key === 'ArrowRight') {
+                        lofiCarousel.scrollBy({ left: lofiCarousel.clientWidth * 0.8, behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
