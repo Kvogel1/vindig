@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vin-Dig - Partner</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Shared styles for consistency */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/Hero-Home.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 300px;
+        }
+        .active-nav-link {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: #FFFFFF;
+        }
+        .nav-link-hover:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: #FFFFFF;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: var(--header-height, 96px);
+            left: 0;
+            width: 100%;
+            height: calc(100vh - var(--header-height, 96px));
+            background-color: #000;
+            flex-direction: column;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 40;
+            overflow-y: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-menu li {
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Consistent Header -->
+    <header class="bg-black py-2 px-6 flex items-center justify-between shadow-md sticky top-0 z-50">
+        <div class="w-1/3 flex justify-start">
+            <a href="https://www.vinyl-digital.com/" target="_blank" class="block">
+                <img src="images/vindig-logo-pic.png" alt="Online Shop" class="h-16 w-16" onerror="this.onerror=null; this.src='https://placehold.co/64x64/000000/FFFFFF?text=SHOP';">
+            </a>
+        </div>
+        <div class="w-1/3 flex justify-center">
+             <a href="index.html" class="block">
+                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-20 md:h-28" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
+            </a>
+        </div>
+        <div class="w-1/3 flex justify-end items-center">
+            <nav id="main-nav" class="hidden md:flex">
+                 <ul class="flex space-x-6">
+                    <li><a href="index.html" class="text-white nav-link-hover font-medium">Home</a></li>
+                    <li><a href="milestones.html" class="text-white nav-link-hover font-medium">Milestones</a></li>
+                    <li><a href="team.html" class="text-white nav-link-hover font-medium">Team</a></li>
+                    <li><a href="playlists.html" class="text-white nav-link-hover font-medium">Playlists</a></li>
+                    <li><a href="vinyl.html" class="text-white nav-link-hover font-medium">Vinyl</a></li>
+                    <li><a href="partner.html" class="text-white nav-link-hover font-medium active-nav-link">Partner</a></li>
+                </ul>
+            </nav>
+            <button id="hamburger-menu" class="text-white text-3xl md:hidden focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="hidden mobile-menu">
+        <ul>
+            <li><a href="index.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Home</a></li>
+            <li><a href="milestones.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Milestones</a></li>
+            <li><a href="team.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Team</a></li>
+            <li><a href="playlists.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Playlists</a></li>
+            <li><a href="vinyl.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Vinyl</a></li>
+            <li><a href="partner.html" class="block text-white nav-link-hover font-medium active-nav-link py-2 text-2xl">Partner</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center text-center">
+        <h1 class="text-5xl md:text-7xl font-bold text-white tracking-wider px-4 py-2 uppercase">Our Partners</h1>
+    </section>
+
+    <!-- Main Content for Partners -->
+    <main class="bg-black text-white">
+        <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            
+            <div class="space-y-16">
+
+                <!-- Partner 1: BKRSCLB RECORDS -->
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/bkrsclub.jpg" alt="BKRSCLB RECORDS Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">BKRSCLB RECORDS</h2>
+                        <a href="https://www.bkrsclb.com/" target="_blank" class="text-[#F3FE00] hover:underline break-all">https://www.bkrsclb.com/</a>
+                        <p class="mt-4 text-gray-300">BKRSCLB is a label founded by rapper Raz Fresco from Toronto, Canada. He created the brand in order to release his instrumental music separate from his as the rap artist, but has since featured beats by several amazing producers as well. Since June 2024 BKRSCLB is officially a sublabel of VINDIG.</p>
+                    </div>
+                </div>
+
+                <!-- Partner 2: Future of Lofi -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                     <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/fol.jpg" alt="Future of Lofi" class="rounded-lg w-full">
+                    </div>
+					<!--Allign tag: inside div class="md: w-2/3 text-left md:text-right --!>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">Future of Lofi</h2>
+                         <a href="https://open.spotify.com/intl-de/artist/0b9Bv2oexIu58D3Jp2b2iP?si=EBIQz002S5uAgzUq42XF9g" target="_blank" class="text-[#F3FE00] hover:underline break-all">Spotify Profile</a>
+                        <p class="mt-4 text-gray-300">Future of Lofi is our innovative sublabel dedicated to exploring the next evolution of Lo-Fi music. Here, we embrace experimentation and creativity, releasing tracks with artists that push the boundaries of the genre and envision what Lo-Fi will sound like in the years to come. Welcome to the future!</p>
+                    </div>
+                </div>
+
+                <!-- Partner 3: Example Distributor -->
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/wvvy.jpg" alt="Global Distro Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">wvvy</h2>
+                         <a href="#" class="text-[#F3FE00] hover:underline">https://linktr.ee/wvvy</a>
+                        <p class="mt-4 text-gray-300">wvvy is your destination for the finest selection of Lo-Fi house, smooth house and techhouse. Our sublabel is dedicated to curating high-quality tracks that embody positivity and subtlety. Check out the wvvy playlist on Spotify to find soothing rhythms and uplifting vibes.</p>
+                    </div>
+                </div>
+                
+                 <!-- Partner 4: Example Pressing Plant -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                     <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/postpartum.jpg" alt="Precision Pressing Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">POSTPARTUM.</h2>
+                         <a href="#" class="text-[#F3FE00] hover:underline">https://postpartum-records.com/</a>
+                        <p class="mt-4 text-gray-300">POSTPARTUM. is a german underground hip hop label founded in 2016 in Auerbach, Germany. They regularly release cassetttes and vinyl records in small editions, so you can certainly find some rare gems on their page.</p>
+                    </div>
+                </div>
+				
+				<!-- Partner 3: Example Distributor -->
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/kellerflav.png" alt="Global Distro Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">Keller Flavour</h2>
+                         <a href="#" class="text-[#F3FE00] hover:underline">https://www.instagram.com/kellerflavour/</a>
+                        <p class="mt-4 text-gray-300">Keller Flavour is a record label based in Munich, Germany and was founded in 2014. "Hip Hop, Rap, instrumental beat stuff and other things called music is released on limited tapes and vinyl."</p>
+                    </div>
+                </div>
+				
+				 <!-- Partner 4: Example Pressing Plant -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                     <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/tapefabrik.png" alt="Precision Pressing Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">Tapefabrik</h2>
+                         <a href="#" class="text-[#F3FE00] hover:underline">https://www.tapefabrik.de/</a>
+                        <p class="mt-4 text-gray-300">We are one of the official main sponsors of the Tapefabrik Festival! A local underground hip hop festival with several stages (one of them being a VINDIG beat stage), sales stands (dig through some Vinyl Digital records) and cool streetfood options.</p>
+                    </div>
+                </div>
+				
+				<!-- Partner 3: Example Distributor -->
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/backspin.png" alt="Global Distro Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3">
+                        <h2 class="text-3xl font-bold text-white">BACKSPIN</h2>
+                         <a href="#" class="text-[#F3FE00] hover:underline">https://backspin-shop.de/</a>
+                        <p class="mt-4 text-gray-300">Backspin is a staple in the german hip hop culture. They have shaped the scene with their magazines, interviews and documentations with and about big names in the industry. We are proud to say that we sponsored their 30 years anniversary this year and are looking forward to many more to come!</p>
+                    </div>
+                </div>
+				
+				 <!-- Partner 4: Example Pressing Plant -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8">
+                     <div class="md:w-1/3 flex-shrink-0">
+                        <img src="images/Partner/hhk.jpg" alt="Precision Pressing Logo" class="rounded-lg w-full">
+                    </div>
+                    <div class="md:w-2/3 ">
+                        <h2 class="text-3xl font-bold text-white">Hip Hop Kitchen</h2>
+                         <a href="#" class="text-[#F3FE00] hover:underline">https://hiphopkitchen.de/</a>
+                        <p class="mt-4 text-gray-300">We have been a partner of the HIPHOP KITCHEN event for several years now and we love it! Enjoy a three course meal prepared by professional chefs, live music by local beatmakers and fun games with the chance to win some vinyls from us.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Consistent Footer -->
+    <footer class="bg-black py-8 px-4 text-gray-600">
+        <div class="max-w-full mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-spotify text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-apple text-xl"></i></a>
+                <a href="#" class="fab fa-youtube text-gray-400 hover:text-white transition-colors duration-300 text-xl"></a>
+                <a href="#" class="fab fa-soundcloud text-gray-400 hover:text-white transition-colors duration-300 text-xl"></a>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
+                <a href="privacy-policy.html" class="text-gray-500 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="impressum.html" class="text-gray-500 hover:text-white transition-colors duration-300">Impressum</a>
+                <span class="text-gray-500">© 2011-2024 Vinyl Digital GmbH</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script for mobile menu functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-menu');
+            const mobileNav = document.getElementById('mobile-nav');
+            const header = document.querySelector('header');
+
+            const setHeaderHeightVar = () => {
+                document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+            };
+
+            setHeaderHeightVar();
+            window.addEventListener('resize', setHeaderHeightVar);
+
+            hamburgerBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileNav.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

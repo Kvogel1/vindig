@@ -4,109 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vin-Dig - Homepage</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom font import */
-        @font-face {
-            font-family: 'Alternate Gothic ATF';
-            src: url('fonts/AlternateGothicATF-Regular.woff2') format('woff2'),
-                 url('fonts/AlternateGothicATF-Regular.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        @font-face {
-            font-family: 'Alternate Gothic ATF';
-            src: url('fonts/AlternateGothicATF-Bold.woff2') format('woff2'),
-                 url('fonts/AlternateGothicATF-Bold.woff') format('woff');
-            font-weight: bold;
-            font-style: normal;
-        }
-
         /* Custom styles for the background image and font */
         body {
-            font-family: 'Inter', sans-serif; /* Default fallback */
+            font-family: 'Poppins', sans-serif; /* Modern font for all text */
             background-color: #000; /* Overall dark background */
         }
-
-        h1, h2, h3, h4, h5, h6, strong {
-            font-family: 'Alternate Gothic ATF', sans-serif; /* Apply custom font to headings and strong text */
-        }
-
+        
         .hero-section {
-            /* Using the provided Hero-Home.jpg image */
-            /* Added linear-gradient for transparency and darker overlay */
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/Hero-Home.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* Made thinner by reducing height to max 300px */
-            height: 300px; /* Max height 300px for all screen sizes */
+            height: 300px;
         }
 
-        /* Responsive adjustments for the hero section background to ensure it looks good on mobile */
         @media (max-width: 768px) {
             .hero-section {
-                /* Using the same image for simplicity, but ideally a mobile-optimized one for performance */
-                background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/Hero-Home.jpg');
-                height: 300px; /* Consistent max height for mobile */
+                height: 300px;
             }
         }
 
-        /* Hide scrollbar for the artist carousel but allow scrolling */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .hide-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
-        /* Active navigation link styling */
         .active-nav-link {
             text-decoration: underline;
-            text-underline-offset: 4px; /* Adjust as needed for underline spacing */
-            color: #F3FE00; /* Signature color for active link */
+            text-underline-offset: 4px;
+            color: #FFFFFF;
         }
 
-        /* Hover effect for navigation links using signature color */
         .nav-link-hover:hover {
             text-decoration: underline;
             text-underline-offset: 4px;
-            color: #F3FE00; /* Signature color on hover */
+            color: #FFFFFF;
         }
 
-        /* Style for carousel navigation arrows */
         .carousel-nav-btn {
-            background-color: rgba(128, 128, 128, 0.75); /* Gray background */
-            color: #F3FE00; /* Signature color for arrows */
-            transition: background-color 0.3s ease; /* Smooth transition for background */
+            background-color: rgba(128, 128, 128, 0.75);
+            color: #F3FE00;
+            transition: background-color 0.3s ease;
         }
 
         .carousel-nav-btn:hover {
-            background-color: rgba(128, 128, 128, 1); /* Darker gray on hover */
-            color: #F3FE00; /* Signature color remains on hover */
+            background-color: rgba(128, 128, 128, 1);
+            color: #F3FE00;
         }
 
-        /* Mobile navigation menu styling */
-        /* Use CSS variable for top position based on header height */
         .mobile-menu {
-            position: fixed; /* Changed to fixed to stick below the sticky header */
-            top: var(--header-height, 96px); /* Fallback 96px if JS not loaded/variable not set */
+            position: fixed;
+            top: var(--header-height, 96px);
             left: 0;
             width: 100%;
-            height: calc(100vh - var(--header-height, 96px)); /* Fill remaining viewport height */
-            background-color: #000; /* Same as header background */
+            height: calc(100vh - var(--header-height, 96px));
+            background-color: #000;
             flex-direction: column;
             padding: 1rem 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            z-index: 40; /* Below fixed header, above content */
-            overflow-y: auto; /* Enable scrolling if menu content is long */
-            justify-content: center; /* Center menu items vertically */
-            align-items: center; /* Center menu items horizontally */
+            z-index: 40;
+            overflow-y: auto;
+            justify-content: center;
+            align-items: center;
         }
 
         .mobile-menu li {
@@ -114,14 +82,13 @@
             text-align: center;
         }
 
-        /* Modal specific styles */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -130,13 +97,20 @@
 
         .modal-content {
             background-color: #1a1a1a;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            max-width: 90%;
+            max-width: 95%;
+            width: 1000px;
             max-height: 90vh;
             overflow-y: auto;
             color: #fff;
             position: relative;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
+        
+        #modalArtistName {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 2.25rem; /* text-4xl */
         }
 
         .modal-close-btn {
@@ -146,6 +120,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #F3FE00;
+            background-color: transparent;
         }
 
         .spinner {
@@ -161,45 +136,53 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Custom Hover Effects */
+        .artist-overlay {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+            transition: background-color 0.3s ease;
+        }
+
+        .group:hover .artist-overlay {
+            background-color: rgba(0, 0, 0, 0); /* Make overlay transparent on hover */
+        }
+
+        .view-bio-btn {
+             transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .group:hover .view-bio-btn {
+            background-color: #FFFFFF;
+            color: #000000;
+        }
+
     </style>
 </head>
 <body class="bg-black text-white">
 
-    <header class="bg-black py-6 px-6 flex items-center justify-between shadow-md sticky top-0 z-50 relative">
-        <!-- Left Section: Online Shop Icon -->
-        <div class="flex items-center flex-shrink-0 w-24 justify-start z-30">
+    <header class="bg-black py-2 px-6 flex items-center justify-between shadow-md sticky top-0 z-50">
+        <div class="w-1/3 flex justify-start">
             <a href="https://www.vinyl-digital.com/" target="_blank" class="block">
-                <img src="images/vindig-logo-pic.png" alt="Online Shop" class="h-16 w-16 rounded-md" onerror="this.onerror=null; this.src='https://placehold.co/64x64/000000/FFFFFF?text=SHOP';">
+                <img src="images/vindig-logo-pic.png" alt="Online Shop" class="h-16 w-16" onerror="this.onerror=null; this.src='https://placehold.co/64x64/000000/FFFFFF?text=SHOP';">
             </a>
         </div>
-
-        <!-- Center Section: Logo (Desktop) -->
-        <div class="hidden md:flex flex-grow justify-center items-center min-w-0 px-2">
-            <a href="index.html" class="block">
-                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-24 md:h-32 rounded-md max-w-[50vw] min-w-[100px]" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
+        <div class="w-1/3 flex justify-center">
+             <a href="index.html" class="block">
+                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-20 md:h-28" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
             </a>
         </div>
-
-        <!-- Center Section: Logo (Mobile) -->
-        <div class="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-            <a href="index.html" class="block">
-                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-24 rounded-md max-w-[calc(100%-192px)]" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
-            </a>
-        </div>
-
-        <!-- Right Section: Desktop Navigation Links and Hamburger (Mobile) -->
-        <div class="flex items-center flex-shrink-0 z-30">
+        <div class="w-1/3 flex justify-end items-center">
             <nav id="main-nav" class="hidden md:flex">
                 <ul class="flex space-x-6">
-                    <li><a href="#" class="nav-link-hover font-medium active-nav-link">Home</a></li>
-                    <li><a href="#" class="text-white nav-link-hover font-medium">Milestone</a></li>
-                    <li><a href="#" class="text-white nav-link-hover font-medium">Tours</a></li>
-                    <li><a href="#" class="text-white nav-link-hover font-medium">Playlists</a></li>
-                    <li><a href="#" class="text-white nav-link-hover font-medium">Vinyl</a></li>
-                    <li><a href="#" class="text-white nav-link-hover font-medium">Partner</a></li>
+                    <li><a href="#" class="text-white nav-link-hover font-medium active-nav-link">Home</a></li>
+                    <li><a href="milestones.html" class="text-white nav-link-hover font-medium">Milestones</a></li>
+                    <li><a href="team.html" class="text-white nav-link-hover font-medium">Team</a></li>
+                    <li><a href="playlists.html" class="text-white nav-link-hover font-medium">Playlists</a></li>
+                    <li><a href="vinyl.html" class="text-white nav-link-hover font-medium">Vinyl</a></li>
+                    <li><a href="partner.html" class="text-white nav-link-hover font-medium">Partner</a></li>
                 </ul>
             </nav>
-            <button id="hamburger-menu" class="text-white text-2xl md:hidden focus:outline-none">
+            <button id="hamburger-menu" class="text-white text-3xl md:hidden focus:outline-none">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -208,21 +191,22 @@
     <nav id="mobile-nav" class="hidden mobile-menu">
         <ul>
             <li><a href="#" class="block text-white nav-link-hover font-medium active-nav-link py-2 text-2xl">Home</a></li>
-            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Milestone</a></li>
-            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Tours</a></li>
-            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Playlists</a></li>
-            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Vinyl</a></li>
-            <li><a href="#" class="block text-white nav-link-hover font-medium py-2 text-2xl">Partner</a></li>
+            <li><a href="milestones.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Milestones</a></li>
+            <li><a href="team.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Team</a></li>
+            <li><a href="playlists.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Playlists</a></li>
+            <li><a href="vinyl.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Vinyl</a></li>
+            <li><a href="partner.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Partner</a></li>
         </ul>
     </nav>
 
     <section class="hero-section flex items-center justify-center text-center">
-        <h1 class="text-5xl md:text-7xl font-bold text-white tracking-widest px-4 py-2 rounded-lg">Our Artists</h1>
+        <h1 class="text-5xl md:text-7xl font-bold text-white tracking-wider px-4 py-2 uppercase">Our Artists</h1>
     </section>
 
     <section class="bg-black py-8 px-4 flex justify-center">
         <div class="relative w-full max-w-lg">
             <input
+                id="artistSearchInput"
                 type="text"
                 placeholder="Search artists..."
                 class="w-full py-3 pl-12 pr-4 bg-gray-900 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:border-transparent transition-all duration-300"
@@ -233,72 +217,14 @@
         </div>
     </section>
 
-    <!-- Lo-Fi Section Title -->
     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Lo-Fi</h2>
     </section>
 
-    <!-- Artists Showcase Section (Lo-Fi) -->
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="lofi-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+1" alt="Artist 1" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 1">Artist 1 ✨</button>
-                        </div>
-                    </div>
                 </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+2" alt="Artist 2" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 2">Artist 2 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+3" alt="Artist 3" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 3">Artist 3 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+4" alt="Artist 4" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 4">Artist 4 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+5" alt="Artist 5" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 5">Artist 5 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+6" alt="Artist 6" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 6">Artist 6 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+7" alt="Artist 7" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 7">Artist 7 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <button id="lofi-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
@@ -316,65 +242,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="jazzy-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+8" alt="Artist 8" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 8">Artist 8 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+9" alt="Artist 9" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 9">Artist 9 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+10" alt="Artist 10" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 10">Artist 10 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+11" alt="Artist 11" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 11">Artist 11 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+12" alt="Artist 12" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 12">Artist 12 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+13" alt="Artist 13" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 13">Artist 13 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+14" alt="Artist 14" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 14">Artist 14 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="jazzy-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="jazzy-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="jazzy-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -382,73 +251,16 @@
             </button>
         </div>
     </section>
-
-    <section class="bg-black py-8 text-center">
+    
+     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">International Rap</h2>
     </section>
 
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="rap-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+15" alt="Artist 15" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 15">Artist 15 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+16" alt="Artist 16" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 16">Artist 16 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+17" alt="Artist 17" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 17">Artist 17 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+18" alt="Artist 18" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 18">Artist 18 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+19" alt="Artist 19" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 19">Artist 19 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+20" alt="Artist 20" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 20">Artist 20 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+21" alt="Artist 21" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 21">Artist 21 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="rap-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -456,7 +268,7 @@
             </button>
         </div>
     </section>
-
+    
     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">German Rap</h2>
     </section>
@@ -464,65 +276,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="german-rap-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+22" alt="Artist 22" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 22">Artist 22 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+23" alt="Artist 23" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 23">Artist 23 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+24" alt="Artist 24" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 24">Artist 24 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+25" alt="Artist 25" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 25">Artist 25 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+26" alt="Artist 26" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 26">Artist 26 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+27" alt="Artist 27" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 27">Artist 27 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+28" alt="Artist 28" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 28">Artist 28 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="german-rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="german-rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="german-rap-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -530,7 +285,7 @@
             </button>
         </div>
     </section>
-
+    
     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">New Cats Rap</h2>
     </section>
@@ -538,65 +293,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="new-cats-rap-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+29" alt="Artist 29" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 29">Artist 29 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+30" alt="Artist 30" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 30">Artist 30 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+31" alt="Artist 31" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 31">Artist 31 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+32" alt="Artist 32" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 32">Artist 32 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+33" alt="Artist 33" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 33">Artist 33 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+34" alt="Artist 34" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 34">Artist 34 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+35" alt="Artist 35" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 35">Artist 35 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="new-cats-rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="new-cats-rap-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="new-cats-rap-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -604,7 +302,7 @@
             </button>
         </div>
     </section>
-
+    
     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">New Cats Instrumental</h2>
     </section>
@@ -612,65 +310,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="new-cats-instrumental-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+36" alt="Artist +36" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 36">Artist 36 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+37" alt="Artist 37" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 37">Artist 37 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+38" alt="Artist 38" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 38">Artist 38 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+39" alt="Artist 39" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 39">Artist 39 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+40" alt="Artist 40" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 40">Artist 40 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+41" alt="Artist 41" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 41">Artist 41 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+42" alt="Artist 42" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 42">Artist 42 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="new-cats-instrumental-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="new-cats-instrumental-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="new-cats-instrumental-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -678,7 +319,7 @@
             </button>
         </div>
     </section>
-
+    
     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Classics</h2>
     </section>
@@ -686,65 +327,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="classics-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+43" alt="Artist 43" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 43">Artist 43 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+44" alt="Artist 44" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 44">Artist 44 ✨</button>
-                        </div>
-                        </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+45" alt="Artist 45" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 45">Artist 45 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+46" alt="Artist 46" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 46">Artist 46 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+47" alt="Artist 47" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 47">Artist 47 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+48" alt="Artist 48" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 48">Artist 48 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+49" alt="Artist 49" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 49">Artist 49 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="classics-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="classics-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="classics-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -752,7 +336,7 @@
             </button>
         </div>
     </section>
-
+    
     <section class="bg-black py-8 text-center">
         <h2 class="text-3xl md:text-4xl font-bold text-white tracking-wide">Chill Beats</h2>
     </section>
@@ -760,65 +344,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="chill-beats-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+50" alt="Artist 50" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 50">Artist 50 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+51" alt="Artist 51" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 51">Artist 51 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+52" alt="Artist 52" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 52">Artist 52 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+53" alt="Artist 53" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 53">Artist 53 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+54" alt="Artist 54" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 54">Artist 54 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+55" alt="Artist 55" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 55">Artist 55 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+56" alt="Artist 56" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 56">Artist 56 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="chill-beats-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="chill-beats-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="chill-beats-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -834,65 +361,8 @@
     <section class="bg-black py-8">
         <div class="relative max-w-full mx-auto px-4">
             <div id="beat-art-carousel" class="flex overflow-x-auto hide-scrollbar snap-x snap-mandatory scroll-smooth pb-4 -mx-2">
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+57" alt="Artist 57" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 57">Artist 57 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+58" alt="Artist 58" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 58">Artist 58 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+59" alt="Artist 59" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 59">Artist 59 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+60" alt="Artist 60" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 60">Artist 60 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/333333/FFFFFF?text=Artist+61" alt="Artist 61" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 61">Artist 61 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/1a1a1a/FFFFFF?text=Artist+62" alt="Artist 62" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 62">Artist 62 ✨</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
-                    <div class="relative aspect-square w-full bg-gray-800 rounded-md overflow-hidden group">
-                        <img src="https://placehold.co/600x600/666666/FFFFFF?text=Artist+63" alt="Artist 63" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 transition-opacity duration-300 group-hover:opacity-100">
-                            <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 rounded-md view-bio-btn" data-artist-name="Artist 63">Artist 63 ✨</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button id="beat-art-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
+                 </div>
+             <button id="beat-art-scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
                 <i class="fas fa-chevron-left"></i>
             </button>
             <button id="beat-art-scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 p-3 rounded-full shadow-lg z-10 carousel-nav-btn focus:outline-none focus:ring-2 focus:ring-[#F3FE00] focus:ring-opacity-75">
@@ -901,16 +371,12 @@
         </div>
     </section>
 
-    <!-- Modal for Artist Bio -->
     <div id="bioModal" class="modal-overlay hidden">
         <div class="modal-content">
-            <span class="modal-close-btn" id="closeBioModal">&times;</span>
-            <h3 class="text-3xl font-bold mb-4 text-[#F3FE00]" id="modalArtistName"></h3>
-            <div id="modalBioContent" class="text-base text-gray-300">
-                <div class="spinner mx-auto my-8"></div>
-                <p class="text-center">Generating bio...</p>
-            </div>
-            <p id="modalError" class="text-red-500 text-center mt-4 hidden">Failed to load bio.</p>
+            <span class="modal-close-btn" id="closeBioModal">×</span>
+            <div id="modalBodyContainer" class="flex flex-wrap items-start">
+                </div>
+            <p id="modalError" class="text-red-500 text-center mt-4 hidden"></p>
         </div>
     </div>
 
@@ -927,9 +393,9 @@
             </div>
 
             <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
-                <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Privacy Policy</a>
-                <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">Impressum</a>
-                <span class="text-gray-500">© 2023 Vin-Dig Rec. Right Reserved Gmbh</span>
+                <a href="privacy-policy.html" class="text-gray-500 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="impressum.html" class="text-gray-500 hover:text-white transition-colors duration-300">Impressum</a>
+                <span class="text-gray-500">© 2011-2024 Vinyl Digital GmbH</span>
             </div>
         </div>
     </footer>
@@ -938,50 +404,392 @@
         document.addEventListener('DOMContentLoaded', () => {
             const hamburgerBtn = document.getElementById('hamburger-menu');
             const mobileNav = document.getElementById('mobile-nav');
-            const header = document.querySelector('header'); // Get the header element
+            const header = document.querySelector('header');
 
-            // Modal elements
             const bioModal = document.getElementById('bioModal');
             const closeBioModalBtn = document.getElementById('closeBioModal');
-            const modalArtistName = document.getElementById('modalArtistName');
-            const modalBioContent = document.getElementById('modalBioContent');
+            const modalBodyContainer = document.getElementById('modalBodyContainer');
             const modalError = document.getElementById('modalError');
-            const viewBioBtns = document.querySelectorAll('.view-bio-btn'); // Select all view bio buttons
-
-            // Function to set CSS variable for header height
+            
+            const artistData = {
+                "Thelonious Coltrane": {
+                    bio: "Thelonious Coltrane is a self called „art project from Frankfurt and now based in Tbilisi“. He is an instrumental hip hop virtuoso and it is impossible to imagine the scene without him. Since he started being active in music in 2008, he was able to land various editorial playlist placements, work on many collabs with fellow artists and produce several Bandcamp exclusive projects. We are proud that such a versatile artist like Thelonious Coltrane is a recurring part of our label!",
+                    spotify: "https://open.spotify.com/embed/artist/6iXZPP5qLB2dtIQ4WuNk9M?utm_source=generator",
+                    genre: "Lo-Fi",
+                    image: "images/Lo-Fi/theloniouscoltrane.jpg"
+                },
+                "90s Flav": {
+                    bio: "90s Flav is a lo-fi artist veteran known for creating music that blends together elements of hip-hop, jazz, and soul with a nostalgic 90s feel. His much loved album „The Collection“ includes a range of moods and styles that evoke the feeling of the 90s. The beats are generally mellow and relaxed, creating a dreamy, atmospheric vibe that is perfect for chilling out, studying or relaxing.",
+                    spotify: "https://open.spotify.com/embed/artist/6OOxsmeDk34xk6Ok3Ap95C?utm_source=generator",
+                    genre: "Lo-Fi",
+                    image: "images/Lo-Fi/90sFlav.jpg"
+                },
+                 "Flughand": {
+                    bio: "Flughand is a Lo-Fi artist from Leipzig, Germany, and one of the best known artists in this genre. His first album \"F.Stop\" was released in 2013. Three years later, in 2016, he released his next album, EXPEDITion Vol. 7: Moonloops, to much more avail than before, gaining hundreds of thousands of listeners. He has released 9 albums since, taking listeners from all over the world on a journey through dreamy and peaceful vibes.",
+                    spotify: "https://open.spotify.com/embed/artist/6x5HLaMcoxaULXpgN0NJbb?utm_source=generator",
+                    genre: "Lo-Fi",
+                    image: "images/Lo-Fi/Flughand.jpg"
+                },
+                "Jinsang": {
+                    bio: "Jinsang is an exceptionally talented producer whose artistry is a true reflection of his personality and experiences. With well known albums like \"Life\" and \"Solitude\", he has been able to reach people around all corners of the world.",
+                    spotify: "https://open.spotify.com/embed/artist/5FsfZj0Mp6YwEWytuJUcWt?utm_source=generator",
+                     genre: "Lo-Fi",
+                    image: "images/Lo-Fi/Jinsang.jpg"
+                },
+                "Wun Two": {
+                    bio: "Wun Two is one of the most delicate producers on the planet. Besides consistently pumping out thematic releases from his ever-consistent „Snow“ series to his „First Date“ heart shaped vinyl, he has made himself immortal in the worldwide Lo-Fi scene with solo projects like „Penthouse“. Based in South Germany, Wun Two has collaborated with international beatmakers such as Brenk Sinatra and CoryaYo, as well as with rappers such as the German elo or the US-American Conway the Machine, with whom he hit the charts with the album „Palermo“.",
+                    spotify: "https://open.spotify.com/embed/artist/69cjjIQEN8M6heOBT2SqZE?utm_source=generator",
+                     genre: "Lo-Fi",
+                    image: "images/Lo-Fi/wuntwo.jpg"
+                },
+                "wüsh": {
+                    bio: "Florida’s producer veteran wüsh has captured the hearts of listeners worldwide with his cozy beats, creating a signature sound that is both soothing and captivating. With his winter single series leading up to the „snowfall“ album, he delivers a mix of jazzy Lo-fi tracks, inviting you to embrace the cozy vibes.",
+                    spotify: "https://open.spotify.com/embed/artist/4UpdjtYWiLUuaFT18TefcK?utm_source=generator",
+                     genre: "Lo-Fi",
+                    image: "images/Lo-Fi/wüsh.jpg"
+                },
+                 "Bassti": {
+                    bio: "With a string of successful releases, Bassti has solidified his place as a respected artist in the Lo-Fi genre. Despite his ever-growing discography and delivery of top-notch productions, the german producer continues to push boundaries and explore new sonic territories. He also regularly releases projects in collaboration with Nalim. As a duo, the two producers Bassti and Nalim have really found each other, harmonize perfectly and get the best out of their music. With groovy melodies, cozy lofi influences and relaxed jazz hop, they are a surefire combination for every real beat head.",
+                    spotify: "https://open.spotify.com/embed/artist/0tFVT92PBHTTLoKmS8WbFP?utm_source=generator",
+                    genre: "Jazzy",
+                    image: "images/Jazzy/Bassti.jpg"
+                },
+                "Bugseed": {
+                    bio: "Bugseed is a Tokyo born beatmaker, making authentic hip hop tracks full of inspired by 90s boombap and abstract underground hip hop sounds. Since the late 2000’s, he has been consistently creating Hip Hop beats reminiscent of those from the genre’s golden era. Bugseed is long established in the international beat scene and has built a loyal fanbase loving his sound and tapes.",
+                    spotify: "https://open.spotify.com/embed/artist/0ObliAtls0po56kVnacsOd?utm_source=generator",
+                    genre: "Jazzy",
+                    image: "images/Jazzy/Bugseed.jpg"
+                },
+                "digitalluc": {
+                    bio: "digitalluc is a bedroom producer and master engineer from Berlin, who is addicted to the moon. His debut album \"waitwait\" in 2015 was a huge success instantly and was released on vinyl as well. Since then, he has released several projects, including \"re:ups\", \"blu dot.\" and \"Metropolis\", who have been majorly successful as well. Besides that, he was part of the producers for the Original Motion Picture Soundtrack of \"Wenn der Vorhand fällt\".",
+                    spotify: "https://open.spotify.com/embed/artist/4WT5TNNUvgRLjAiWce3K5z?utm_source=generator",
+                    genre: "Jazzy",
+                    image: "images/Jazzy/digitalluc.jpg"
+                },
+                "Figub Brazlevic": {
+                    bio: "For the last fourteen years, Figub Brazlevic has been working and dropping music from Berlin-Moabit and has had a total of 27 years of experience. His inspiration comes from a variety of musical genres like jazz, funk or soul. Most recognizable are the concise drums and percussions, which he uses to underline his beats and capture the spirit of the 90’s Golden Era, which influences his entire musical career, while still being open to any kind of inspiration.",
+                    spotify: "https://open.spotify.com/embed/artist/4Eo1mdoAOk2DbXMDUDnCum?utm_source=generator",
+                    genre: "Jazzy",
+                    image: "images/Jazzy/Figub Brazlevic.jpg"
+                },
+                "Skinny Pit": {
+                    bio: "Skinny Pit is an Italian Rapper and beat producer based in Sardinia, Italy. On his first official solo project „Connessione Cosmopolita“, he put together MC’s, producer and DJ’s from all over the world (Italy, Chile, Netherlands, Peru and Argentina) with the aim of connecting hip hop underground cats in one project, followed by his second album „Escape 98“, including 10 heavy Boom Bap tracks with features from McGyver, Tonyus and more. Skinny Pit produces beats with an absolute head nod guarantee in the spirit of the golden era of Hip Hop – fresh sound from Italy for your turntables!",
+                    spotify: "https://open.spotify.com/embed/artist/7djT3FpXHcKiLwpLwl9Ari?utm_source=generator",
+                    genre: "Jazzy",
+                    image: "images/Jazzy/Skinny Pit.jpg"
+                },
+                 "Daniel Son": {
+                    bio: "Daniel Son is a Canadian artist from Toronto, Ontario. He is the founder of Brown Bag Money & member of the hip hop collective The Umbrella. He has released 20+ projects and has collaborated with artists such as Futurewave, Raz Fresco, Rome Streetz, Eto, V Don, Giallo Point, Estee Nack, Flee Lord, Al Divino, Pro Dillinger, CRIMEAPPLE, RJ Payne & many more.",
+                    spotify: "https://open.spotify.com/embed/artist/6Hrq57am01Bxyp89bUWqFF?utm_source=generator",
+                    genre: "International Rap",
+                    image: "images/International Rap/Daniel Son.jpg"
+                },
+                "BlabberMouf": {
+                    bio: "BlabberMouf is an Emcee from the Netherlands with a fast paced flow and ragga-muffin influenced style. His live shows are very powerful and he knows how to control the crowd – whether all over Europe or in different countries in South America. BlabberMouf has a lot of love for the Underground Hip-Hop Movement and is a real connoisseur of dopeness. He is a member of Het VerZet, Da Shogunz and the collective L’entourloop.",
+                    spotify: "https://open.spotify.com/embed/artist/3Grucy0ZteSBpWLaBXqt2Z?utm_source=generator",
+                    genre: "International Rap",
+                    image: "images/International Rap/BlabberMouf.jpg"
+                },
+                "Conway the Machine": {
+                    bio: "Matching gritty bars with a methodical, menacing delivery and unmistakeable ad-libs, Buffalo’s Conway the Machine is acclaimed for his restless output of albums, mixtapes and collaborations. Focusing on music after suffering a near-fatal shooting in 2012, the MC co-founded Griselda Records alongside brother and fellow rapper Westsie Gunn, and became a key component of the resurgence of grimy New York rap.",
+                    spotify: "https://open.spotify.com/embed/album/5byLh9YeAXyIReAD3kvGKv?utm_source=generator",
+                    genre: "International Rap",
+                    image: "images/International Rap/Conway the Machine.jpg"
+                },
+                "Pete Rock": {
+                    bio: "Rapper, DJ and producer Pete Rock emerged in the early ´90s as one half of a rap dup with C.L. Smooth, later going solo solidifying his place as one of the most acclaimed hip-hop producers from the East Coast scene. In addition to his own recordings (the Soul Survivor series), he has also worked with dozens of artists over the decades, including Nas, De La Soul and various members of the Wu-Tang Clan.",
+                    spotify: "https://open.spotify.com/embed/album/2VXkgdiXFunIO581a4vqcR?utm_source=generator",
+                    genre: "International Rap",
+                    image: "images/International Rap/Pete Rock.jpg"
+                },
+                "Raz Fresco": {
+                    bio: "Raz Fresco is a Canadian rapper and record producer born in Toronto, Ontario. He is the founder of the hip hop collective BKRSCLB. He has released over 40+ projects and has produced for many rappers such as Raekwon, French Montana, Mac Miller and many more.",
+                    spotify: "https://open.spotify.com/embed/artist/08RVkVEdLLoTgd5YbXHOIC?utm_source=generator",
+                    genre: "International Rap",
+                    image: "images/International Rap/Raz Fresco.jpg"
+                },
+                "Shortie No Mass": {
+                    bio: "Shortie No Mass has been in the hip hop game for a minute. In 1993, she was featured on De La Soul’s third album „Buhloone Mindstate“. Over the years, she has been hailed one of the best female MC’s and has had the pleasure of working with historic artists such as Grand Master Flash, The Roots, Kanye West and may more.",
+                    spotify: "https://open.spotify.com/embed/album/7uWNP4I9KscTO3G6MNiwsN?utm_source=generator",
+                    genre: "International Rap",
+                    image: "images/International Rap/Shortie No Mass.jpg"
+                },
+                "Donato": {
+                    bio: "The German rapper Donato, who lives in Munich, achieves a mixture of depth and entertainment that regularly takes the listener on a rollercoaster ride of emotions. On the release of his album \"Anarco\", he says: \"It's a step closer to myself, because you get to know yourself a little bit better with every song you write.\"",
+                    spotify: "https://open.spotify.com/embed/artist/2YGSJbZcUcyNE38i07cawp?utm_source=generator",
+                    genre: "German Rap",
+                    image: "images/German Rap/Donato.jpg"
+                },
+                "Team Avantgarde": {
+                    bio: "Rapper Phase and producer Zenit have been working as Team Avantgarde since 2004. With abstract lyrics and conscious content, they have provided a counterpoint in Berlin, which at the time was synonymous with battlerap. DJ S.R. has also been part of the team since 2013. Their current album \"Zeitraffer\" delivers tracks full of self-reflection and social grievances, including features by TAHA, Gris and grim104, among others.",
+                    spotify: "https://open.spotify.com/embed/album/3OBKmTqjZbae1pbItrjB3s?utm_source=generator",
+                    genre: "German Rap",
+                    image: "images/German Rap/Team Avantgarde.jpg"
+                },
+                "Kamp": {
+                    bio: "Kamp is an Austrian hip hop musician. In 1999, he gave a successful concert in Vienna after Enimen, which led to him being signed to the Dortmund-based independent label Deck8. At the beginning of 2007, he was nominated for the Amadeus \"Best Alternative Act\". In 2009, he released the legendary album \"Versager ohne Zukunft\" with Whizz Vienna, which was named \"Record of the Year\" by the German hip hop magazine Juice. To this day, the painfully personal lyrics on slow stomping soul chops enjoy cult status.",
+                    spotify: "https://open.spotify.com/embed/artist/5pzlZh3s97T1Q6kCS9nqAb?utm_source=generator",
+                    genre: "German Rap",
+                    image: "images/German Rap/Kamp.jpg"
+                },
+                "Prezident": {
+                    bio: "Prezident is a rapper from Wuppertal, Germany. Inspired by literary role models such as Franz Kafka, Ernest Hemingway and Charles Bukowski, he deals with enigmatic themes in his music. His style, which he himself describes as \"whiskey rap\", can be classified as conscious rap. Although he is more underground, he has already celebrated several chart successes with his albums.",
+                    spotify: "https://open.spotify.com/embed/artist/0701oFugqkENoPXu4xSmzn?utm_source=generator",
+                    genre: "German Rap",
+                    image: "images/German Rap/Prezident.jpg"
+                },
+                "Rö": {
+                    bio: "Rö is a German rapper who took his first steps in the scene in 2016 as part of the group \"Kram aus der Ecke\". He now lives in Berlin and is also active as a solo artist. His most popular works are \"Early Love Songs\" Part 1 and 2.",
+                    spotify: "https://open.spotify.com/embed/album/1NyOtQqtoC6dOrJs4W5doT?utm_source=generator",
+                    genre: "German Rap",
+                    image: "images/German Rap/Rö.jpg"
+                },
+                 "Black Moulay": {
+                    bio: "Moroccan influences meet melody and strong rhymes: Black Moulay goes from classic street rap to musical diversity. He does not allow himself to be pigeonholed into a fixed genre and proves time and again how multifaceted he can work.",
+                    spotify: "https://open.spotify.com/embed/album/6CraXKip3j8xaLak7Ehlib?utm_source=generator",
+                    genre: "New Cats Rap",
+                    image: "images/New Cats Rap/Black Moulay.jpg"
+                },
+                "COLDFACE": {
+                    bio: "An underground rapper who combines trap with melodies. Processes his dark past with his broken heart and pain on the world. On empty streets at night? Listen to COLDFACE.",
+                    spotify: "https://open.spotify.com/embed/artist/5uEAWK0HVe6yTsFZuClgIj?utm_source=generator",
+                    genre: "New Cats Rap",
+                    image: "images/New Cats Rap/COLDFACE.jpg"
+                },
+                "Fontal": {
+                    bio: "23-year old german underground rapper Fontal shows that german rap can still be interesting and entertain you. He combines routinely delivered powerful rap vocals on self-produced banging beats, that will not fail to make your head nod. Plus, clever lyrics with the right amount of humour. The breath of fresh air that the scene needed!",
+                    spotify: "https://open.spotify.com/embed/artist/22uVzjN6R2LcsKxi7xXlMG?utm_source=generator",
+                    genre: "New Cats Rap",
+                    image: "images/New Cats Rap/Fontal.jpg"
+                },
+                "kilian wasi": {
+                    bio: "kilian wasi is a german rap / pop artist, songwriter and creative director from Aachen, Germany. His music style is characterized by influences from several genres, like RnB and rock, combined with the perfect mix of rapping and singing. In 2023, he was voted the HipHop.de „Upcoming Act of the Month“, followed by the release of his debut EP „555“ this year.",
+                    spotify: "https://open.spotify.com/embed/album/6YoqLoL0LHZb6MHJGEf7Rj?utm_source=generator",
+                    genre: "New Cats Rap",
+                    image: "images/New Cats Rap/kilian wasi.jpg"
+                },
+                "Le Mietz": {
+                    bio: "Le Mietz is a german artist from Wuppertal, Germany. At the age of 15, he discovered his love for not only lyrics and rapping, but also for the whole hip hop and graffiti scene. Today, he has his own graffiti store \"Le Mietz Art\" and has released several rap albums online as well as on vinyl.",
+                    spotify: "https://open.spotify.com/embed/album/2h7rlKL4Sb3lFm7QVGXdne?utm_source=generator",
+                    genre: "New Cats Rap",
+                    image: "images/New Cats Rap/Le Mietz.jpg"
+                },
+                "bozzabeats": {
+                    bio: "bozzabeats is producer from Germany who is widely known for his ability to effortlessly create the perfect soundscape for a relaxing evening. Atmospheric sounds, rich textures and careful compositions let you chillout let you chillout and find your groove!",
+                    spotify: "https://open.spotify.com/embed/artist/0grNxrdM1P3IKCt5Bn0kB6?utm_source=generator",
+                    genre: "New Cats Instrumental",
+                    image: "images/New Cats Instrumental/bozzabeats.jpg"
+                },
+                "Coloured Rocks": {
+                    bio: "Flo a.k.a. Coloured Rocks from Cologne finds his musical origins in the metal and hardcore scene. After 3 years as a band guitarist, he began to produce his own songs and over time began to focus on instrumental beats. Both in his solo tracks and in collaborations with artists such as Lenny B, Fred Paci or 77th Man, Flo always implements a wide variety of guitar sound to put his stamp on the tracks. His chillhop and lofi beats are heard on BBC Radio or in editorial playlists such as Jazz Vibes, Lofi Sunday or chill lofi study beats.",
+                    spotify: "https://open.spotify.com/embed/artist/4CMUg0w1aGMdiWjfl3zI8t?utm_source=generator",
+                    genre: "New Cats Instrumental",
+                    image: "images/New Cats Instrumental/Coloured Rocks.jpg"
+                },
+                "Drips Zacheer": {
+                    bio: "Drips Zacheer is a highly talented music producer and audio engineer hailing from Greece. With a reputation that precedes him, Drips Zacheer has become renowned for his exceptional versatility, as he expertly blends a variety of genres to create his unique sound. Influenced by a range of musical styles, including funk, soul, bossa nova and hip-hop, Drips Zacheer is a master at his craft. His music oozes with heart and soul, and his beats are some of the tastiest around.",
+                    spotify: "https://open.spotify.com/embed/artist/6evg3DBRRbN4YNlzbeS6VN?utm_source=generator",
+                    genre: "New Cats Instrumental",
+                    image: "images/New Cats Instrumental/Drips Zacheer.jpg"
+                },
+                "farewell": {
+                    bio: "farewell sounds like reconnecting with a familiar face. The native-born Bostonian producer weaves notes of his personal life into his melancholic but warm and welcoming lofi production, often drawing inspiration from dusty records dug from local crates. „I tie my music to other people’s music and times in my life“, farewell says. „My own life affects 100 percent of my music.“ In a sense, farewell invites you to experience his memories alongside him, an artist and a listener, both firsthand witnesses to misty vignettes of artistic Bostonian existence.",
+                    spotify: "https://open.spotify.com/embed/artist/4wGoZhMN4NyNoZqUgMxUxc?utm_source=generator",
+                    genre: "New Cats Instrumental",
+                    image: "images/New Cats Instrumental/farewell.jpg"
+                },
+                "Sandy Mental": {
+                    bio: "Sandy Mental discovered her passion for music through her father's vinyl collection, fostering a love for diverse sounds and melodies. She learned to play piano at school but was not the best at it because to her, it was boring and outdated. One day, a good friend introduced her to the world of sampling and beat-making, igniting her creative spark and using her piano skill in a better way. Since then, she is on fire and making beats in her own unique sound. Every track has a deeply personal story, crafting a unique, emotionally, sexy and sentimental sound that defines her artist name and distinct musical style. Another close friend plays the saxophone for her while she's drinking some Amaretto Sours or Aperol Spritzzs... ;)",
+                    spotify: "https://open.spotify.com/embed/artist/1TIM4mSeLlFajoWxR0GDK3?utm_source=generator",
+                    genre: "New Cats Instrumental",
+                    image: "images/New Cats Instrumental/Sandy Mental.jpg"
+                },
+                 "Clams Casino": {
+                    bio: "New Jersey-based producer Clams Casino’s instantly recognizable sound, fusing sludgy, blown-out beats with hazy, nearly shoegaze-like distortion and haunting, dislocated samples, almost singlehandedly spawned the cloud rap subgenre. Around the turn of the 2010s, his atmospheric production work for rappers like A$AP Rocky, Main Attrakionz, and especially Lil B stood out and garnered much critical praise, and his 2011 mixtape Instrumentals became a landmark release, gaining a cult following and expanding audience beyond underground rap circles. His sound remained influential throughout the decade, as he produced and remixed songs by artists such as FKA twigs and Lana Del Rey, as well as launching his first solo-releases, including his album „Instrumental Relics“ with the highly successful track „I’m God“ with ist Imogen Heap sample.",
+                    spotify: "https://open.spotify.com/embed/album/66eXLlqksAwNndmHaHWtCq?utm_source=generator",
+                    genre: "Classics",
+                    image: "images/Classics/Clams Casino.jpg"
+                },
+                "Flamingosis": {
+                    bio: "Flamingosis (the name comes from a free-style Frisbee move that his father invented) is a New Jersey-based electronic music producer and beatboxer. Drawing on influences from other producers such as Flying Lotus and J Dilla as well as vintage funk and disco music, Flamingosis creates engaging and soulful tracks and puts on an infectiously energetic live show.",
+                    spotify: "https://open.spotify.com/embed/album/66WB7trJcMz1nUDxsNQt5g?utm_source=generator",
+                    genre: "Classics",
+                    image: "images/Classics/Flamingosis.jpg"
+                },
+                "Gramatik": {
+                    bio: "Gramatik is a Slovenian electronic music producer, originally from Portoroz, Slovenia. At the age of 13, he started producing hip-hop music using an early PC. He later began sharing his tracks through the online music store Beatport, which helped him gain a following in the United States and Europe. After working with the label Pretty Lights Music for several years, he founded his own label „Lowtemp Recordings“ and reissued his first seven albums with new or updated artwork, including the widely famous albums „The Age of Reason“ and „Water 4 The Soul“.",
+                    spotify: "https://open.spotify.com/embed/album/78yCDE8RwbOewhT0DrmKti?utm_source=generator",
+                    genre: "Classics",
+                    image: "images/Classics/Gramatik.jpg"
+                },
+                "Joey Bada$$": {
+                    bio: "A mix of indie and street, rapper Joey Bada$$ rose to fame by releasing mixtapes and joining the hip-hop collective PRO ERA with fellow MC Capital Steez. In 2012, he made his solo debut with the mixtape 1999, which was followed in 2013 by the mixtape Summer Knights. The full-length album „B4.DA.$$“ appeared in 2015, filled with productions from the likes of Statik Selektah and DJ Premier, as well as a track where The Roots helped complete a lost beat from the late, great J Dilla. In the years that followed, Joey collaborated with Korean hip-hop artist Tablo and British band Glass Animals and released his sophomore long-player in 2017, featuring guest spots by ScHoolboy Q, StylesP, J.Cole and others.",
+                    spotify: "https://open.spotify.com/embed/album/16KdSB0v7RqYwRjylZCpfn?utm_source=generator",
+                    genre: "Classics",
+                    image: "images/Classics/Joey Bada$$.jpg"
+                },
+                "RAG": {
+                    bio: "Deutschrap ohne RAG ist kaum vorstellbar – die Rapper Aphroe, Pahel und Galla, sowie der Produzent und DJ: Beat Sampraz (Mr. Wiz) stehen für einen besonders lyrischen und eloquenten Sound: auf ihren Tracks vereinen sie perfekte Reimketten und gewaltige Wortkonstrukte und prägten damit die Hip Hop Szene Deutschlands wie keine andere Rap Crew. Ruhrpott 4 Life! R.I.P Galla!",
+                    spotify: "https://open.spotify.com/embed/album/0p0FdUDTobCX4sCAKioSne?utm_source=generator",
+                    genre: "Classics",
+                    image: "images/Classics/RAG.jpg"
+                },
+                "Samwise": {
+                    bio: "Samwise is a mind-blowing Lo-Fi artist from the United Kingdom who has made a name for himself in the scene with his highly successful album \"Winter Chill\" in 2018. Since then, he has released multiple projects full of beautiful and comforting instrumentals and mesmerizing artworks.",
+                    spotify: "https://open.spotify.com/embed/album/4ZXWRWVd6DZbBtHMlpnIiD?utm_source=generator",
+                    genre: "Chill Beats",
+                    image: "images/Chill Beats/Samwise.jpg"
+                },
+                "Oilix": {
+                    bio: "Music producer Danil Tastukhov from Taraz, Kazakhstan, releases his music under the alliases Oilix, Daniel Knoxville and several others. He began studying music in early 2000, when a classmate brought him a program for creating music on CD and suggested “playing around” with it. Danil started listening to music when he was 1.5 years old - his father had a huge music collection on reels, cassettes and vinyl. Thus, the love for music grew into its study and creation. Since 2013, he has been creating soundtracks for video games and commercials under his real name. He draws his main inspiration from video game soundtracks, a huge collection of which he has in his home. The Oilix project was created to help people around the world escape from their difficulties and simply relax through this music. The Daniel Knoxville Project was created to dance and have fun. No matter how different we are, no matter where we live, music is what unites us all.",
+                    spotify: "https://open.spotify.com/embed/artist/5hXOmfSG0AUYWd2ipat82x?utm_source=generator",
+                    genre: "Chill Beats",
+                    image: "images/Chill Beats/Oilix.jpg"
+                },
+                "DRWN.": {
+                    bio: "Born and raised in a suburban area in Switzerland, Marcel Kalt has always had a strong connection to music. By exploring the record collections of his father and his uncle, which featured genres like soul, funk, jazz and electronic music, as well as discovering his love for the resilient and experimental hiphop culture, he started his first attempts to produce instrumental sound drafts. After the first self-published songs via Soundcloud under the pseudonym DRWN., various projects soon followed, which were also released as cassettes or vinyl records. He has largely remained true to his dreamy, sluggisch and low-fidelity hiphop beats, but now and then he dares to venture into more electronic or ambient-inspired realms.",
+                    spotify: "https://open.spotify.com/embed/artist/0h6JSIfoSSbXtaBWiUC4Wy?utm_source=generator",
+                    genre: "Chill Beats",
+                    image: "images/Chill Beats/DRWN..jpg"
+                },
+                "CoryaYo": {
+                    bio: "CoryaYo is a Chicago, US based producer, musician, sound healer and visionary artist. Known for prolifically producing instrumental albums of vibe worthy jazz and soul influenced hip hop beats, ambient healing meditative soundscapes. Cory is currently producing for two rap duos „Strangers of Necessity“ and „Heavily Indicated“, while he also has production credits for artists including Isaiah Rashad, G-Eazy and Price.",
+                    spotify: "https://open.spotify.com/embed/album/1nsklQkw4fsOGncr1dNMc5?utm_source=generator",
+                    genre: "Chill Beats",
+                    image: "images/Chill Beats/CoryaYo.jpg"
+                },
+                "BROCKBEATS": {
+                    bio: "Japanese track maker whose music is played 16 million times a year on Spotify alone, mainly in Europe and the United States. He has emerged from the early days of the lo-fi hip-hop scene, and his mellow, smooth, and sometimes oriental songs express a mental landscape that many people can relate to. His album \"Calm Life\" was released in 2017 and received high acclaim both in Japan and abroad. In Japan, he has also worked on corporate commercials and opening songs for TV programs.",
+                    spotify: "https://open.spotify.com/embed/album/1W8AnWrPfeWUn7MFvP4JTN?utm_source=generator",
+                    genre: "Chill Beats",
+                    image: "images/Chill Beats/BROCKBEATS.jpg"
+                },
+                "Walterwarm": {
+                    bio: "Walterwarm delivers a lush and captivating lofi experience. From Atascadero, USA, he invites you on a chillout and trippy journey with ethereal sounds and futuristic elements. Enjoy a ride through the dimensions of lo-fi.",
+                    spotify: "https://open.spotify.com/embed/artist/07kiOUGRiofjbQZbEPH8yk?utm_source=generator",
+                    genre: "Beat Art",
+                    image: "images/Beat Art/Walterwarm.jpg"
+                },
+                "Vanilla": {
+                    bio: "Vanilla is well-known for his instrumental hip hop and electronic music productions. His strong feeling for harmonies and new sound-context makes Vanilla’s music that special. With his unique beat composition combined with popular-like melody sequences, he brings down the genre-separating barriers. His most successful work „Origin“ moves between relaxed-dreamy melodies and extremely creative re-work sequences. With his genre-defining compositions, Vanilla acts as an inspiration for many other artists.",
+                    spotify: "https://open.spotify.com/embed/artist/69cjjIQEN8M6heOBT2SqZE?utm_source=generator3",
+                    genre: "Beat Art",
+                    image: "images/Beat Art/Vanilla.jpg"
+                },
+                "Tomppabeats": {
+                    bio: "With his intriguing mixture of low-key beats, quirky samples and unusual live instrumentation, Finnish producer Tomppabeats creates tracks that are difficult to define, but easy on the ears. A native of Helsinki, Tomi „Tomppabeats“ Lahtinen began making music in his teens, citing the late Japanese DJ/producer Nujabes as a major inspiration. Rising quickly on the Vine platform, he found viral success with his whimsical tracks which he eventually compiled into the 37-track Harbor LP in the summer of 2016 and has since released several projects on the streaming platforms as well as vinyl pressings.",
+                    spotify: "https://open.spotify.com/embed/artist/69cjjIQEN8M6heOBT2SqZE?utm_source=generator4",
+                    genre: "Beat Art",
+                    image: "images/Beat Art/Tomppabeats.jpg"
+                },
+                "moow": {
+                    bio: "moow’s debut album „I can’t tell you how much it hurts“ already got a lot of attention and reached cult status in the instrumental beat community. 5 years after the overwhelming success of the debut, the french producer released the album „we are all gonna die in 2050“, which in contrary to the title’s message delivers a range of beautiful, life-affirming and positive instrumental beat productions. Moow himself describes it as an image of an anticipated future – the possibly last day to live on our planet earth.",
+                    spotify: "https://open.spotify.com/embed/artist/69cjjIQEN8M6heOBT2SqZE?utm_source=generator5",
+                    genre: "Beat Art",
+                    image: "images/Beat Art/moow.jpg"
+                },
+                "Moderator": {
+                    bio: "Hailing from Athens, Greece, Moderator has been producing his brand of cinematic beats since 2012. His 2015 debut album The World Withing established Moderator as a serious player on the downtempo/trip-hop scene, converting head-bobbing fans and radio support from around the world while also touring through Europe. His latest works, Sinner’s Syndrome and Midnight Madness hit the #1 best-selling album on the Bandcamp music platform selling thousands of records. Dazzling with a distinctive production style that leaps across genre boundaries like psychedelic, lounge, horror film soundtracks, jazz, surf are among the influences that phase in-and-out of Moderator’s songs. It’s like calmly turning the radio dial to a random station, yielding a surprising but pleasant discovery.",
+                    spotify: "https://open.spotify.com/embed/artist/69cjjIQEN8M6heOBT2SqZE?utm_source=generator6",
+                    genre: "Beat Art",
+                    image: "images/Beat Art/Moderator.jpg"
+                }
+				
+            };
+            
+            const lofiCarousel = document.getElementById('lofi-carousel');
+            const jazzyCarousel = document.getElementById('jazzy-carousel');
+            const rapCarousel = document.getElementById('rap-carousel');
+            const germanRapCarousel = document.getElementById('german-rap-carousel');
+            const newCatsRapCarousel = document.getElementById('new-cats-rap-carousel');
+            const newCatsInstrumentalCarousel = document.getElementById('new-cats-instrumental-carousel');
+            const classicsCarousel = document.getElementById('classics-carousel');
+            const chillBeatsCarousel = document.getElementById('chill-beats-carousel');
+            const beatArtCarousel = document.getElementById('beat-art-carousel');
+            
+            for (const artistName in artistData) {
+                const artist = artistData[artistName];
+                const artistCard = `
+                    <div class="artist-item flex-none w-64 md:w-80 lg:w-96 p-2 snap-center">
+                        <div class="relative aspect-square w-full bg-gray-800 overflow-hidden group">
+                            <img src="${artist.image}" alt="${artistName}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/600x600/1a1a1a/FFFFFF?text=${artistName}';">
+                            <div class="artist-overlay absolute inset-0 flex items-center justify-center">
+                                <button class="text-white text-lg font-bold uppercase border border-white px-4 py-2 view-bio-btn" data-artist-name="${artistName}" data-artist-image="${artist.image}">${artistName}</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                if (artist.genre === "Lo-Fi") {
+                    lofiCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "Jazzy") {
+                    jazzyCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "International Rap") {
+                    rapCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "German Rap") {
+                    germanRapCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "New Cats Rap") {
+                    newCatsRapCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "New Cats Instrumental") {
+                    newCatsInstrumentalCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "Classics") {
+                    classicsCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "Chill Beats") {
+                    chillBeatsCarousel.innerHTML += artistCard;
+                } else if (artist.genre === "Beat Art") {
+                    beatArtCarousel.innerHTML += artistCard;
+                }
+            }
+            
             const setHeaderHeightVar = () => {
                 document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
             };
 
-            // Set initial header height and update on resize
             setHeaderHeightVar();
             window.addEventListener('resize', setHeaderHeightVar);
 
-            // Hamburger menu functionality
             hamburgerBtn.addEventListener('click', () => {
                 mobileNav.classList.toggle('hidden');
             });
 
-            // Hide mobile menu if screen resized to desktop or bigger
             window.addEventListener('resize', () => {
-                if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
+                if (window.innerWidth >= 768) {
                     mobileNav.classList.add('hidden');
                 }
             });
 
-            // Gemini API Integration for Artist Bio
-            const generateArtistBio = async (artistName) => {
-                modalArtistName.textContent = artistName;
-                modalBioContent.innerHTML = '<div class="spinner mx-auto my-8"></div><p class="text-center">Generating bio...</p>';
+            const openArtistModal = (artistName, artistImage) => {
                 modalError.classList.add('hidden');
-                bioModal.classList.remove('hidden'); // Show modal
+                modalBodyContainer.innerHTML = '';
+                const artistInfo = artistData[artistName];
+
+                if (artistInfo) {
+                    modalBodyContainer.innerHTML = `
+                        <div class="w-full md:w-1/2 pr-4 flex flex-col">
+                            <img src="${artistImage}" alt="${artistName}" class="w-full h-48 object-cover mb-4 rounded-lg">
+                            <h3 class="text-4xl font-bold mb-4">${artistName}</h3>
+                            <p class="text-base text-gray-300">${artistInfo.bio}</p>
+                        </div>
+                        <div class="w-full md:w-1/2 mt-6 md:mt-0 md:pl-4 flex flex-col">
+                             <h4 class="text-xl font-bold mb-2 text-white">POPULAR SONGS</h4>
+                             <div class="flex-grow">
+                                <iframe style="border-radius:12px; height: 100%; min-height: 400px;" src="${artistInfo.spotify}" width="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                             </div>
+                        </div>
+                    `;
+                } else {
+                    generateArtistBio(artistName, artistImage);
+                }
+                bioModal.classList.remove('hidden');
+            };
+
+            const generateArtistBio = async (artistName, artistImage) => {
+                modalBodyContainer.innerHTML = '<div class="spinner mx-auto my-8"></div><p class="text-center">Generating bio...</p>';
+                bioModal.classList.remove('hidden');
 
                 try {
-                    let chatHistory = [];
                     const prompt = `Provide a concise biography (max 150 words) for the music artist "${artistName}". Focus on their genre, notable works, and impact. If you don't know the artist, state "Information about ${artistName} is currently unavailable."`;
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Canvas will automatically provide it in runtime
+                    const payload = { contents: [{ role: "user", parts: [{ text: prompt }] }] };
+                    const apiKey = ""; // Provided at runtime
                     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
                     const response = await fetch(apiUrl, {
@@ -991,58 +799,55 @@
                     });
 
                     const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
+                    
+                    if (result.candidates && result.candidates[0]?.content?.parts[0]?.text) {
                         const text = result.candidates[0].content.parts[0].text;
-                        modalBioContent.innerHTML = `<p>${text}</p>`;
+                         modalBodyContainer.innerHTML = `
+                            <div class="w-full">
+                               <img src="${artistImage}" alt="${artistName}" class="w-full h-48 object-cover mb-4 rounded-lg">
+                               <h3 class="text-4xl font-bold mb-4">${artistName}</h3>
+                               <p>${text}</p>
+                            </div>
+                        `;
                     } else {
-                        modalBioContent.innerHTML = ''; // Clear spinner
-                        modalError.textContent = `Could not generate bio for ${artistName}. Please try again.`;
-                        modalError.classList.remove('hidden');
-                        console.error('Unexpected API response structure:', result);
+                        throw new Error('Unexpected API response structure.');
                     }
                 } catch (error) {
-                    modalBioContent.innerHTML = ''; // Clear spinner
-                    modalError.textContent = `An error occurred while fetching the bio: ${error.message}`;
+                    modalBodyContainer.innerHTML = '';
+                    modalError.textContent = `Could not generate bio for ${artistName}. Please try again.`;
                     modalError.classList.remove('hidden');
                     console.error('Error fetching artist bio:', error);
                 }
             };
-
-            // Event listeners for "View Bio" buttons
-            viewBioBtns.forEach(button => {
+            
+            document.querySelectorAll('.view-bio-btn').forEach(button => {
                 button.addEventListener('click', () => {
                     const artistName = button.dataset.artistName;
-                    generateArtistBio(artistName);
+                    const artistImage = button.dataset.artistImage;
+                    openArtistModal(artistName, artistImage);
                 });
             });
 
-            // Close modal functionality
             closeBioModalBtn.addEventListener('click', () => {
                 bioModal.classList.add('hidden');
             });
 
-            // Close modal if overlay is clicked
             bioModal.addEventListener('click', (event) => {
                 if (event.target === bioModal) {
                     bioModal.classList.add('hidden');
                 }
             });
 
-
-            // Smooth scroll for carousel navigation (existing code)
             const carousels = [
                 { id: 'lofi-carousel', leftBtn: 'lofi-scroll-left', rightBtn: 'lofi-scroll-right' },
                 { id: 'jazzy-carousel', leftBtn: 'jazzy-scroll-left', rightBtn: 'jazzy-scroll-right' },
                 { id: 'rap-carousel', leftBtn: 'rap-scroll-left', rightBtn: 'rap-scroll-right' },
-                { id: 'german-rap-carousel', leftBtn: 'german-rap-scroll-left', rightBtn: 'german-rap-scroll-right' },
-                { id: 'new-cats-rap-carousel', leftBtn: 'new-cats-rap-scroll-left', rightBtn: 'new-cats-rap-scroll-right' },
-                { id: 'new-cats-instrumental-carousel', leftBtn: 'new-cats-instrumental-scroll-left', rightBtn: 'new-cats-instrumental-scroll-right' },
-                { id: 'classics-carousel', leftBtn: 'classics-scroll-left', rightBtn: 'classics-scroll-right' },
-                { id: 'chill-beats-carousel', leftBtn: 'chill-beats-scroll-left', rightBtn: 'chill-beats-scroll-right' },
-                { id: 'beat-art-carousel', leftBtn: 'beat-art-scroll-left', rightBtn: 'beat-art-scroll-right' }
+                 { id: 'german-rap-carousel', leftBtn: 'german-rap-scroll-left', rightBtn: 'german-rap-scroll-right' },
+                 { id: 'new-cats-rap-carousel', leftBtn: 'new-cats-rap-scroll-left', rightBtn: 'new-cats-rap-scroll-right' },
+                 { id: 'new-cats-instrumental-carousel', leftBtn: 'new-cats-instrumental-scroll-left', rightBtn: 'new-cats-instrumental-scroll-right' },
+                 { id: 'classics-carousel', leftBtn: 'classics-scroll-left', rightBtn: 'classics-scroll-right' },
+                 { id: 'chill-beats-carousel', leftBtn: 'chill-beats-scroll-left', rightBtn: 'chill-beats-scroll-right' },
+                 { id: 'beat-art-carousel', leftBtn: 'beat-art-scroll-left', rightBtn: 'beat-art-scroll-right' }
             ];
 
             carousels.forEach(carouselData => {
@@ -1053,52 +858,35 @@
                 if (carousel && scrollLeftBtn && scrollRightBtn) {
                     const scrollCarousel = (direction) => {
                         const scrollAmount = carousel.clientWidth * 0.8;
-                        if (direction === 'left') {
-                            carousel.scrollBy({
-                                left: -scrollAmount,
-                                behavior: 'smooth'
-                            });
-                        } else {
-                            carousel.scrollBy({
-                                left: scrollAmount,
-                                behavior: 'smooth'
-                            });
-                        }
+                        carousel.scrollBy({
+                            left: direction === 'left' ? -scrollAmount : scrollAmount,
+                            behavior: 'smooth'
+                        });
                     };
                     scrollLeftBtn.addEventListener('click', () => scrollCarousel('left'));
                     scrollRightBtn.addEventListener('click', () => scrollCarousel('right'));
-
-                    let touchStartX = 0;
-                    let touchEndX = 0;
-                    carousel.addEventListener('touchstart', (e) => {
-                        touchStartX = e.touches[0].clientX;
-                    });
-                    carousel.addEventListener('touchmove', (e) => {
-                        touchEndX = e.touches[0].clientX;
-                    });
-                    carousel.addEventListener('touchend', () => {
-                        if (touchStartX - touchEndX > 50) {
-                            scrollCarousel('right');
-                        } else if (touchEndX - touchStartX > 50) {
-                            scrollCarousel('left');
-                        }
-                        touchStartX = 0;
-                        touchEndX = 0;
-                    });
-                } else {
-                    console.error(`Carousel or buttons not found for ID: ${carouselData.id}`);
                 }
             });
 
-            document.addEventListener('keydown', (e) => {
-                const lofiCarousel = document.getElementById('lofi-carousel');
-                if (lofiCarousel) {
-                    if (e.key === 'ArrowLeft') {
-                        lofiCarousel.scrollBy({ left: -lofiCarousel.clientWidth * 0.8, behavior: 'smooth' });
-                    } else if (e.key === 'ArrowRight') {
-                        lofiCarousel.scrollBy({ left: lofiCarousel.clientWidth * 0.8, behavior: 'smooth' });
+            const artistSearchInput = document.getElementById('artistSearchInput');
+            const artistItems = document.querySelectorAll('.artist-item');
+            const artistSections = document.querySelectorAll('section.bg-black.py-8');
+
+            artistSearchInput.addEventListener('input', () => {
+                const searchTerm = artistSearchInput.value.toLowerCase().trim();
+
+                artistItems.forEach(item => {
+                    const artistName = item.querySelector('.view-bio-btn').dataset.artistName.toLowerCase();
+                    item.style.display = artistName.includes(searchTerm) ? 'flex' : 'none';
+                });
+
+                artistSections.forEach(section => {
+                    const title = section.querySelector('h2');
+                    if (title) {
+                        const visibleArtists = section.querySelectorAll('.artist-item[style*="display: flex"]');
+                        section.style.display = (visibleArtists.length === 0 && searchTerm) ? 'none' : 'block';
                     }
-                }
+                });
             });
         });
     </script>

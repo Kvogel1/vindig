@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vin-Dig - Milestones</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Shared styles for consistency */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+        }
+        .hero-section {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/Hero-Home.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 300px;
+        }
+        .active-nav-link {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: #FFFFFF;
+        }
+        .nav-link-hover:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            color: #FFFFFF;
+        }
+        .mobile-menu {
+            position: fixed;
+            top: var(--header-height, 96px);
+            left: 0;
+            width: 100%;
+            height: calc(100vh - var(--header-height, 96px));
+            background-color: #000;
+            flex-direction: column;
+            padding: 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 40;
+            overflow-y: auto;
+            justify-content: center;
+            align-items: center;
+        }
+        .mobile-menu li {
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+        }
+        /* Timeline specific styles */
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #F3FE00; /* Yellow line */
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: white;
+            border: 4px solid #F3FE00; /* Yellow border */
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .right::after {
+            left: -16px;
+        }
+        .content {
+            padding: 20px 30px;
+            background-color: #1a1a1a; /* Dark background for content */
+            position: relative;
+            border-radius: 6px;
+        }
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .hero-section {
+                height: 300px;
+            }
+            .timeline-container::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid white;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent white transparent transparent;
+            }
+            .left::after, .right::after {
+                left: 15px;
+            }
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Consistent Header -->
+    <header class="bg-black py-2 px-6 flex items-center justify-between shadow-md sticky top-0 z-50">
+        <div class="w-1/3 flex justify-start">
+            <a href="https://www.vinyl-digital.com/" target="_blank" class="block">
+                <img src="images/vindig-logo-pic.png" alt="Online Shop" class="h-16 w-16" onerror="this.onerror=null; this.src='https://placehold.co/64x64/000000/FFFFFF?text=SHOP';">
+            </a>
+        </div>
+        <div class="w-1/3 flex justify-center">
+             <a href="index.html" class="block">
+                <img src="images/vindig-logo-text.png" alt="Vin-Dig Logo" class="h-20 md:h-28" onerror="this.onerror=null; this.src='https://placehold.co/150x75/000000/FFFFFF?text=VIN-DIG+LOGO';">
+            </a>
+        </div>
+        <div class="w-1/3 flex justify-end items-center">
+            <nav id="main-nav" class="hidden md:flex">
+                 <ul class="flex space-x-6">
+                    <li><a href="index.html" class="text-white nav-link-hover font-medium">Home</a></li>
+                    <li><a href="milestones.html" class="text-white nav-link-hover font-medium active-nav-link">Milestones</a></li>
+                    <li><a href="team.html" class="text-white nav-link-hover font-medium">Team</a></li>
+                    <li><a href="playlists.html" class="text-white nav-link-hover font-medium">Playlists</a></li>
+                    <li><a href="vinyl.html" class="text-white nav-link-hover font-medium">Vinyl</a></li>
+                    <li><a href="partner.html" class="text-white nav-link-hover font-medium">Partner</a></li>
+                </ul>
+            </nav>
+            <button id="hamburger-menu" class="text-white text-3xl md:hidden focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="hidden mobile-menu">
+        <ul>
+            <li><a href="index.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Home</a></li>
+            <li><a href="milestones.html" class="block text-white nav-link-hover font-medium active-nav-link py-2 text-2xl">Milestones</a></li>
+            <li><a href="team.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Team</a></li>
+            <li><a href="playlists.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Playlists</a></li>
+            <li><a href="vinyl.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Vinyl</a></li>
+            <li><a href="partner.html" class="block text-white nav-link-hover font-medium py-2 text-2xl">Partner</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center text-center">
+        <h1 class="text-5xl md:text-7xl font-bold text-white tracking-wider px-4 py-2 uppercase">Our Milestones</h1>
+    </section>
+
+    <!-- Main Content for Milestones -->
+    <main class="bg-black text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            
+            <div class="timeline-container">
+                
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">BKRSCLB</h2>
+                        <small class="text-gray-400">June 1st, 2024</small>
+                        <p class="mt-2">BKRSCLB, the music label by Raz Fresco, has officially signed to be a sublabel of VINDIG.</p>
+                        <img src="images/Milestones/bkrsclub.jpg" class="mt-4 rounded-lg" alt="Milestone 1">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">RAZ FRESCO & DANIEL SON</h2>
+                        <small class="text-gray-400">May 17, 2024</small>
+                        <p class="mt-2">NORTHSIDE on Billboard in Toronto, Canada.</p>
+                        <img src="images/Milestones/danielson-billboard.jpg" class="mt-4 rounded-lg" alt="Milestone 2">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">LOFI.SAMURAI</h2>
+                        <small class="text-gray-400">April 1st, 2024</small>
+                        <p class="mt-2">Re-signing of the artist LOFI.SAMURAI with his complete digital back catalogue as well as a new vinyl deal.</p>
+                        <img src="images/Milestones/lofisamurai.jpg" class="mt-4 rounded-lg" alt="Milestone 3">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">KAMP & WHIZZ VIENNA</h2>
+                        <small class="text-gray-400">January 12, 2024</small>
+                        <p class="mt-2">VERSAGER OHNE ZUKUNFT reaches number 4 in the german hip hop charts and number 7 in the german album charts.</p>
+                        <img src="images/Milestones/kamp.jpg" class="mt-4 rounded-lg" alt="Milestone 4">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">CONWAY & WUN TWO</h2>
+                        <small class="text-gray-400">January 5, 2024</small>
+                        <p class="mt-2">PALERMO reaches number 7 in the german hip hop charts and number 19 in the german album charts.</p>
+                        <img src="images/Milestones/conway.jpg" class="mt-4 rounded-lg" alt="Milestone 5">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 6 -->
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">RAZ FRESCO & FIGUB BRAZLEVIC</h2>
+                        <small class="text-gray-400">September 1st, 2023</small>
+                        <p class="mt-2">777 on Billboard in Toronto, Canada</p>
+                        <img src="images/Milestones/razfresco.jpg" class="mt-4 rounded-lg" alt="Milestone 6">
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 7 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">KAMP & FID MELLA</h2>
+                        <small class="text-gray-400">July 8, 2022</small>
+                        <p class="mt-2">2URÜCK OHNE 2UKUNFT reaches number 9 in the german album charts.</p>
+                        <img src="images/Milestones/kamp.jpg" class="mt-4 rounded-lg" alt="Milestone 7">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 8 -->
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">RAG</h2>
+                        <small class="text-gray-400">May 13, 2022</small>
+                        <p class="mt-2">POTTENTIAL reaches number 1 in the german hip hop charts and number 10 in the german album charts.</p>
+                        <img src="images/Milestones/rag.jpg" class="mt-4 rounded-lg" alt="Milestone 8">
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 9 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">DONATO</h2>
+                        <small class="text-gray-400">May 7, 2021</small>
+                        <p class="mt-2">ANARCO reaches number 7 in the german hip hop charts and number 35 in the german album charts.</p>
+                        <img src="images/Milestones/donato.jpg" class="mt-4 rounded-lg" alt="Milestone 9">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 10 -->
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">PREZIDENT</h2>
+                        <small class="text-gray-400">February 28, 2020</small>
+                        <p class="mt-2">ALLES IST VOLL VON GÖTTERN reaches number 7 in the german album charts.</p>
+                        <img src="images/Milestones/prezident.png" class="mt-4 rounded-lg" alt="Milestone 10">
+                    </div>
+                </div>
+
+                 <!-- Timeline Item 11 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">PREZIDENT</h2>
+                        <small class="text-gray-400">April 15, 2016</small>
+                        <p class="mt-2">LIMBUS reaches number 13 in the german album charts.</p>
+                        <img src="images/Milestones/limbus.jpg" class="mt-4 rounded-lg" alt="Milestone 11">
+                    </div>
+                </div>
+
+                <!-- Timeline Item 12 -->
+                <div class="timeline-item right">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">VINDIG</h2>
+                        <small class="text-gray-400">January 1st, 2016</small>
+                        <p class="mt-2">Since 2016, VINDIG has been a formative player in the success of instrumental music. Having achieved significant milestones in the industry, we now also release rap music from Germany, the US and many other countries, digitally and on vinyl.</p>
+                        <img src="images/Milestones/hero-home4.jpg" class="mt-4 rounded-lg" alt="Milestone 12">
+                    </div>
+                </div>
+                
+                <!-- Timeline Item 13 -->
+                <div class="timeline-item left">
+                    <div class="content">
+                        <h2 class="text-xl font-bold text-white">BLUMENTOPF & TEXTA</h2>
+                        <small class="text-gray-400">March 6, 2015</small>
+                        <p class="mt-2">#HMLR reaches number 31 in the german album charts.</p>
+                        <img src="images/Milestones/tnt.jpg" class="mt-4 rounded-lg" alt="Milestone 13">
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Consistent Footer -->
+    <footer class="bg-black py-8 px-4 text-gray-600">
+        <div class="max-w-full mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-facebook-f text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-instagram text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-tiktok text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-spotify text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-apple text-xl"></i></a>
+                <a href="#" class="fab fa-youtube text-gray-400 hover:text-white transition-colors duration-300 text-xl"></a>
+                <a href="#" class="fab fa-soundcloud text-gray-400 hover:text-white transition-colors duration-300 text-xl"></a>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm">
+                <a href="privacypolicy.html" class="text-gray-500 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                <a href="impressum.html" class="text-gray-500 hover:text-white transition-colors duration-300">Impressum</a>
+                <span class="text-gray-500">© 2025 Vinyl Digital Gmbh</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script for mobile menu functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-menu');
+            const mobileNav = document.getElementById('mobile-nav');
+            const header = document.querySelector('header');
+
+            const setHeaderHeightVar = () => {
+                document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+            };
+
+            setHeaderHeightVar();
+            window.addEventListener('resize', setHeaderHeightVar);
+
+            hamburgerBtn.addEventListener('click', () => {
+                mobileNav.classList.toggle('hidden');
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    mobileNav.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
